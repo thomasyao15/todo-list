@@ -8,6 +8,38 @@
     <script src="main.js"></script>
 </head>
 <body>
-    Hello
+    <div class="main">
+        <div class="nav-bar">Thomash's Todo List</div>
+        <div class="side-pane">
+            <h1>My Projects</h1>
+            <div class="projects">
+                <ul>
+                    <li>Pogs</li>
+                    <li>Megamen</li>
+                </ul>
+            </div>
+            <form action="create-project">
+                <input type="text" name="new-project" id="new-project">
+                <button type="submit">Create New Project</button>
+            </form>
+        </div>
+        <div class="todo-content">
+            <h1>Pogs Project</h1>
+            <div class="todo-list">
+                <div class="todo">
+                    <!-- <img src="" alt="" srcset=""> -->
+                    <p>Need to finish this project</p>
+                </div>
+                <div class="todo">
+                    <!-- <img src="" alt="" srcset=""> -->
+                    <p>Finish TOP</p>
+                </div>
+            </div>
+            <form action="create-todo">
+                <input type="text" name="new-todo" id="new-todo">
+                <button type="submit">Create New Todo</button>
+            </form>
+        </div>
+    </div>
 </body>
 </html>
