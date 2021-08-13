@@ -1,0 +1,157 @@
+@import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap');
+
+* {
+    font-family: 'Varela Round', sans-serif;
+}
+
+body {
+    margin: 0;
+    height: 100vh;
+}
+
+.main {
+    height            : 100vh;
+    display           : grid;
+    grid-template-rows: 50px 1fr;
+}
+
+.nav-bar {
+    background-color: #007FFF;
+    display         : flex;
+    justify-content : center;
+    align-items     : center;
+}
+
+header {
+    font-size  : 20px;
+    color      : white;
+    font-weight: 900;
+}
+
+.body-content {
+    display              : grid;
+    grid-template-columns: 300px 1fr;
+}
+
+.side-pane {
+    display            : flex;
+    flex-direction     : column;
+    /* justify-content : center; */
+    align-items        : center;
+    background-color   : aliceblue;
+    padding            : 20px;
+}
+
+.todo-content {
+    background-color: #003459;
+    padding         : 20px 50px;
+    color           : white;
+}
+
+.projects {
+    width : 100%;
+    margin: 20px 0;
+}
+
+ul {
+    margin         : 0;
+    padding        : 0;
+    list-style-type: none;
+    width          : 100%;
+}
+
+li {
+    background-color: #007FFF;
+    color           : white;
+    padding         : 10px 20px;
+    margin-bottom   : 10px;
+    border-radius   : 5px;
+}
+
+li:hover {
+    background-color: #3096fb;
+    cursor          : pointer;
+}
+
+.side-pane form {
+    margin-top    : 10px;
+    width         : 100%;
+    display       : flex;
+    flex-direction: column;
+    align-items   : stretch;
+}
+
+input {
+    margin-bottom   : 10px;
+    height          : 30px;
+    border-radius   : 5px;
+    /* border       : 1px solid rgb(118, 155, 172); */
+    border          : none;
+    padding         : 5px 10px;
+    background-color: rgb(87, 120, 163);
+    color           :#ffffff;
+}
+
+.side-pane button {
+    height          : 40px;
+    border-radius   : 50px;
+    padding: 0 30px;
+    border          : 1px solid rgb(49, 151, 247);
+    color           : rgb(49, 151, 247);
+    background-color: aliceblue;
+    cursor: pointer;
+
+}
+
+
+.todo-list {
+    margin: 40px 0;
+}
+
+.todo {
+    background-color: white;
+    color           : #003459;
+    padding: 1px 20px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.todo:hover {
+    background-color: rgb(228, 236, 238);
+}
+
+.todo-content form {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* .todo-content input {
+    margin-bottom   : 10px;
+    height          : 30px;
+    border-radius   : 5px;
+    border          : none;
+    padding         : 5px 10px;
+    background-color: rgb(87, 120, 163);
+    color           :#ffffff;
+    width: 50%;
+} */
+
+.todo-content input {
+    width: 50%;
+}
+
+::placeholder {
+    color: rgb(213, 231, 255);
+}
+
+.todo-content button {
+    height          : 40px;
+    border-radius   : 50px;
+    padding: 0 30px;
+    border          : 2px solid rgb(234, 244, 253);
+    color           : white;
+    background-color: transparent;
+    cursor: pointer;
+
+}
