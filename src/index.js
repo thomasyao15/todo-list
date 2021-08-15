@@ -79,6 +79,7 @@ class User {
 class LogicController {
     // static let currentUser;
     static currentUser = new User();
+    static currentProject = "";
 
     static initNewSession() {
         // TODO: make new user, check if browser has local saves, if not:
@@ -113,12 +114,17 @@ class LogicController {
 
     static handleChangeProjectClick = e => {
         const projectID = e.target.id;
+        this.currentProject = projectID;
         const selectedProject = this.currentUser.getProject(projectID);
         DisplayController.renderProject(selectedProject);
     }
 
-    static handleCreateTodoClick() {
-
+    static handleCreateTodoClick = e => {
+        e.preventDefault();
+        const todoTitle = document.getElementById("new-todo").value;
+        const newTodo = new Todo(todoTitle);
+        this.currentUser.getProject(this.currentProject).addTodo(newTodo);
+        DisplayController.addTodo(newTodo)
     }
 
     static handleDeleteTodoClick() {
@@ -136,19 +142,15 @@ class DisplayController {
         const focusedProjectTitle = document.querySelector("h1")
         focusedProjectTitle.textContent = selectedProject.title + " Project";
 
-        const newTodoList = document.createElement("div")
-        newTodoList.className = "todo-list"
+        const todoList = document.querySelector(".todo-list")
+        todoList.innerHTML = "";  // remove all children todo elements for clean slate
 
         selectedProject.todos.forEach(todo => {
             const newTodo = document.createElement("div")
             newTodo.className = "todo";
             newTodo.id = todo.ID;
-            newTodoList.append(newTodo);
+            todoList.append(newTodo);
         })
-
-        const oldTodoList = document.querySelector(".todo-list")
-        oldTodoList.parentElement.append(newTodoList)
-        oldTodoList.remove();
     }
 
     static addProject(title, id) {
@@ -160,8 +162,16 @@ class DisplayController {
         projectList.append(newProject);
     }
 
-    static addTodo() {
-        
+    static addTodo(newTodo) {
+        const todoDiv = document.createElement("div")
+        todoDiv.className = "todo";
+        todoDiv.id = newTodo.ID;
+        const todoTitle = document.createElement("p");
+        todoTitle.textContent = newTodo.title;
+
+        const todoList = document.querySelector(".todo-list")
+        todoDiv.append(todoTitle)
+        todoList.append(todoDiv)
     }
 
     static deleteTodo() {
