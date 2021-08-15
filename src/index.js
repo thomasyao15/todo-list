@@ -106,8 +106,9 @@ class LogicController {
             e.preventDefault();
         }
 
-        const projectTextFieldValue = document.getElementById("new-project").value;
-        const projectTitle = projectTextFieldValue == "" ? "Megamen" : projectTextFieldValue;
+        const projectTextField = document.getElementById("new-project")
+        const projectTitle = projectTextField.value == "" ? "Megamen" : projectTextField.value;
+        projectTextField.value = "";
 
         const newProject = new Project(projectTitle);
         this.currentUser.addProject(newProject);
@@ -135,7 +136,8 @@ class LogicController {
 
     static handleCreateTodoClick = e => {
         e.preventDefault();
-        const todoTitle = document.getElementById("new-todo").value;
+        const todoTextField = document.getElementById("new-todo")
+        const todoTitle = todoTextField.value;
         const newTodo = new Todo(todoTitle);
         this.currentUser.getProject(this.currentProject).addTodo(newTodo);
         DisplayController.addTodo(newTodo)
