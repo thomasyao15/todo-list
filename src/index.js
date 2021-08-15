@@ -60,30 +60,65 @@ class User {
         });
     }
 
+    getProject(projectID) {
+        const filteredProjects = this.projects.filter(project => {
+            return project.ID == projectID;
+        });
+
+        if (filteredProjects.length == 0) {
+            console.log("Project ID doesnt exist");
+        } else {
+            return filteredProjects[0];
+        }
+    }
+
     // TODO: get todos from browser saved files
 }
 
 
 class LogicController {
+    // static let currentUser;
+    static currentUser = new User();
+
     static initNewSession() {
         // TODO: make new user, check if browser has local saves, if not:
         // create project and todos objects to populate for demo
         // add init page logic into here so index.js just calls this method
         // WRITE BELOW METHODS FIRST, then call them so you dont repeat code
+        this.createEventHandlers();
     }
 
-    static handleCreateProjectClick() {
+    static createEventHandlers() {
+        const projectForm = document.getElementById("project-form");
+        projectForm.addEventListener("submit", this.handleCreateProjectClick);
+
+        const todoForm = document.getElementById("todo-form");
+        todoForm.addEventListener("submit", this.handleCreateTodoClick);
+    }
+
+    static handleCreateProjectClick = e => {
         // TODO: entry point to creating new peojects
         // Call this from init new session
+        e.preventDefault();
+        const projectTitle = document.getElementById("new-project").value;
+        const newProject = new Project(projectTitle);
+        this.currentUser.addProject(newProject);
+        console.log("Created new project: " + projectTitle);
+
+        DisplayController.addProject(projectTitle, newProject.ID);
     }
 
     static handleDeleteProjectClick() {
     }
 
-    static handleChangeProjectClick() {
+    static handleChangeProjectClick = e => {
+        const projectID = e.target.id;
+        const selectedProject = this.currentUser.getProject(projectID);
+        DisplayController.renderProject(selectedProject);
     }
 
     static handleCreateTodoClick() {
+
     }
 
     static handleDeleteTodoClick() {
@@ -97,10 +132,36 @@ class LogicController {
 class DisplayController {
     static currentProjectTab = "";  // TODO: insert default project ID in here
 
-    static renderProject(projectID) {
+    static renderProject(selectedProject) {
+        const focusedProjectTitle = document.querySelector("h1")
+        focusedProjectTitle.textContent = selectedProject.title + " Project";
+
+        const newTodoList = document.createElement("div")
+        newTodoList.className = "todo-list"
+
+        selectedProject.todos.forEach(todo => {
+            const newTodo = document.createElement("div")
+            newTodo.className = "todo";
+            newTodo.id = todo.ID;
+            newTodoList.append(newTodo);
+        })
+
+        const oldTodoList = document.querySelector(".todo-list")
+        oldTodoList.parentElement.append(newTodoList)
+        oldTodoList.remove();
+    }
+
+    static addProject(title, id) {
+        const newProject = document.createElement("li")
+        newProject.textContent = title;
+        newProject.id = id;
+        newProject.addEventListener("click", LogicController.handleChangeProjectClick)
+        const projectList = document.querySelector("ul");
+        projectList.append(newProject);
     }
 
     static addTodo() {
+        
     }
 
     static deleteTodo() {
@@ -108,3 +169,6 @@ class DisplayController {
 
     // TODO: add other methods as required
 }
+
+
+LogicController.initNewSession();
