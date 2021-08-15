@@ -87,6 +87,8 @@ class LogicController {
         // add init page logic into here so index.js just calls this method
         // WRITE BELOW METHODS FIRST, then call them so you dont repeat code
         this.createEventHandlers();
+        this.demoProjectId = this.handleCreateProjectClick();  // create default demo project on init
+        this.handleChangeProjectClick();  // change to default created project on init
     }
 
     static createEventHandlers() {
@@ -100,20 +102,32 @@ class LogicController {
     static handleCreateProjectClick = e => {
         // TODO: entry point to creating new peojects
         // Call this from init new session
-        e.preventDefault();
-        const projectTitle = document.getElementById("new-project").value;
+        if (e) {
+            e.preventDefault();
+        }
+
+        const projectTextFieldValue = document.getElementById("new-project").value;
+        const projectTitle = projectTextFieldValue == "" ? "Megamen" : projectTextFieldValue;
+
         const newProject = new Project(projectTitle);
         this.currentUser.addProject(newProject);
         console.log("Created new project: " + projectTitle);
 
         DisplayController.addProject(projectTitle, newProject.ID);
+
+        return newProject.ID;  // this return is only used for initialising the default demo project
     }
 
     static handleDeleteProjectClick() {
     }
 
     static handleChangeProjectClick = e => {
-        const projectID = e.target.id;
+        let projectID;
+        if (e) {
+            projectID = e.target.id;
+        } else {
+            projectID = this.demoProjectId;  // set projectID to the stored demoId if event handler invoked artificually from init function
+        }
         this.currentProject = projectID;
         const selectedProject = this.currentUser.getProject(projectID);
         DisplayController.renderProject(selectedProject);
@@ -146,10 +160,13 @@ class DisplayController {
         todoList.innerHTML = "";  // remove all children todo elements for clean slate
 
         selectedProject.todos.forEach(todo => {
-            const newTodo = document.createElement("div")
-            newTodo.className = "todo";
-            newTodo.id = todo.ID;
-            todoList.append(newTodo);
+            const todoDiv = document.createElement("div")
+            todoDiv.className = "todo";
+            todoDiv.id = todo.ID;
+            const todoTitle = document.createElement("p")
+            todoTitle.textContent = todo.title;
+            todoDiv.append(todoTitle);
+            todoList.append(todoDiv);
         })
     }
 
