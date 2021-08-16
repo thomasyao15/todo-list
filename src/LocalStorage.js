@@ -29,7 +29,7 @@ export function saveData(userObj) {
     window.localStorage.setItem("userData", JSON.stringify(userData))
 }
 
-export function loadData(userObj) {
+export function loadData() {
     /** 
      * Retrieves userData from local storage and creates respective projects and todos in the 
      * user object in LogicController
@@ -53,6 +53,9 @@ export function loadData(userObj) {
             const todoTitle = todoObj.todoTitle;
             const completed = todoObj.completed;
             LogicController.handleCreateTodoClick(undefined, todoTitle, todoId);
+            if (completed) {
+                LogicController.handleToggleTodoClick(undefined, todoId);
+            }
         })
     })
 
