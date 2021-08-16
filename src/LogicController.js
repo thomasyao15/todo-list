@@ -66,10 +66,14 @@ export default class LogicController {
         e.preventDefault();
         const todoTextField = document.getElementById("new-todo")
         const todoTitle = todoTextField.value;
-        // TODO: if todotitle is empty, then dont run the rest - keeps crashing though.
-        const newTodo = new Todo(todoTitle);
-        this.currentUser.getProject(this.currentProject).addTodo(newTodo);
-        DisplayController.addTodo(newTodo)
+        todoTextField.value = "";
+
+        if (todoTitle != "") {
+            const newTodo = new Todo(todoTitle);
+            this.currentUser.getProject(this.currentProject).addTodo(newTodo);
+            DisplayController.addTodo(newTodo)
+        }
+
     }
 
     static handleDeleteTodoClick() {

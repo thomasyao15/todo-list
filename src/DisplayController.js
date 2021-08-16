@@ -32,7 +32,7 @@ export default class DisplayController {
     }
 
     static addTodo(newTodo) {
-        const todoDiv = document.createElement("div")
+        const todoDiv = document.createElement("div");
         todoDiv.className = "todo";
         todoDiv.id = newTodo.ID;
         const todoTitle = document.createElement("p");
