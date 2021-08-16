@@ -41,7 +41,7 @@ export default class LogicController {
         }
 
         const projectTextField = document.getElementById("new-project")
-        const projectTitle = manualProjectTitle ? manualProjectTitle : projectTextField.value//projectTextField.value == "" ? "Megamen" : projectTextField.value;
+        const projectTitle = manualProjectTitle ? manualProjectTitle : projectTextField.value;
         projectTextField.value = "";
 
         const newProject = new Project(projectTitle);
@@ -76,15 +76,21 @@ export default class LogicController {
 
     }
 
-    static handleCreateTodoClick = e => {
-        e.preventDefault();
+    static handleCreateTodoClick = (e, manualTodoTitle=undefined, manualTodoID=undefined) => {
+        if (e) {
+            e.preventDefault();
+        }
         const todoTextField = document.getElementById("new-todo")
-        const todoTitle = todoTextField.value;
+        const todoTitle = manualTodoTitle ? manualTodoTitle : todoTextField.value;
         todoTextField.value = "";
 
         if (todoTitle != "") {
             const newTodo = new Todo(todoTitle);
+            if (manualTodoID) {
+                newTodo.ID = manualTodoID;
+            }
             this.currentUser.getProject(this.currentProject).addTodo(newTodo);
+            console.log(this.currentUser.getProject(this.currentProject).todos);
             DisplayController.addTodo(newTodo)
         }
 
