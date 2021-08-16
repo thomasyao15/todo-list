@@ -2,7 +2,7 @@ import User from "./User";
 import DisplayController from "./DisplayController";
 import Project from "./Project";
 import Todo from "./Todo";
-import { saveData } from "./LocalStorage"
+import { saveData, loadData } from "./LocalStorage"
 
 export default class LogicController {
     // static let currentUser;
@@ -14,9 +14,12 @@ export default class LogicController {
         // create project and todos objects to populate for demo
         // add init page logic into here so index.js just calls this method
         // WRITE BELOW METHODS FIRST, then call them so you dont repeat code
+        const loadedFromStorage = loadData(this.currentUser);  // returns true if localStorage has data
+        if (!loadedFromStorage) {
+            let demoProjectId = this.handleCreateProjectClick(undefined, "Megamen");  // create default demo project on init
+            this.handleChangeProjectClick(undefined, demoProjectId);  // change to default created project on init
+        }
         this.createEventHandlers();
-        this.demoProjectId = this.handleCreateProjectClick();  // create default demo project on init
-        this.handleChangeProjectClick();  // change to default created project on init
     }
 
     static createEventHandlers() {
@@ -27,41 +30,50 @@ export default class LogicController {
         todoForm.addEventListener("submit", this.handleCreateTodoClick);
     }
 
-    static handleCreateProjectClick = e => {
-        // TODO: entry point to creating new peojects
-        // Call this from init new session
+    static handleCreateProjectClick = (e, manualProjectTitle=undefined, manualProjectID=undefined) => {
+        /**
+         * Can be called as event handler or manually from init function
+         * for initialisation purposes
+         * Can set manual project ID to get exact ID from localstorage
+         */
         if (e) {
             e.preventDefault();
         }
 
         const projectTextField = document.getElementById("new-project")
-        const projectTitle = projectTextField.value == "" ? "Megamen" : projectTextField.value;
+        const projectTitle = manualProjectTitle ? manualProjectTitle : projectTextField.value//projectTextField.value == "" ? "Megamen" : projectTextField.value;
         projectTextField.value = "";
 
         const newProject = new Project(projectTitle);
+
+        if (manualProjectID) {
+            newProject.ID = manualProjectID;
+        }
+
         this.currentUser.addProject(newProject);
         console.log("Created new project: " + projectTitle);
 
         DisplayController.addProject(projectTitle, newProject.ID);
 
+        saveData(this.currentUser);
         return newProject.ID;  // this return is only used for initialising the default demo project
+        
     }
 
     static handleDeleteProjectClick() {
     }
 
-    static handleChangeProjectClick = e => {
+    static handleChangeProjectClick = (e, projectId=undefined) => {
         let projectID;
         if (e) {
             projectID = e.target.id;
         } else {
-            projectID = this.demoProjectId;  // set projectID to the stored demoId if event handler invoked artificually from init function
+            projectID = projectId;  // set projectID to the stored demoId if event handler invoked artificually from init function
         }
         this.currentProject = projectID;
         const selectedProject = this.currentUser.getProject(projectID);
         DisplayController.renderProject(selectedProject);
 
-        saveData();
     }
 
     static handleCreateTodoClick = e => {
