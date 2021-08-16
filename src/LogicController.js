@@ -79,6 +79,18 @@ export default class LogicController {
     static handleDeleteTodoClick() {
     }
 
-    static handleToggleTodoClick() {
+    static handleToggleTodoClick = e => {
+        /**
+         * Grabs clicked Todo ID and toggles completion then toggles completed class to it
+         * Later move it to the bottom of todo list
+         */
+        const todoID = e.currentTarget.id;
+        const currentProject = this.currentUser.getProject(this.currentProject);
+        const selectedTodo = currentProject.getTodo(todoID);
+        
+        selectedTodo.toggleCompletion();
+        
+        const completed = selectedTodo.completed;
+        DisplayController.toggleTodo(todoID, completed)
     }
 }

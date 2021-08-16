@@ -18,4 +18,16 @@ export default class Project {
             }
         });
     }
+
+    getTodo(todoID) {
+        const filteredTodos = this.todos.filter(todo => {
+            return todo.ID == todoID;
+        });
+
+        if (filteredTodos.length == 0) {
+            console.log("Todo ID doesnt exist");
+        } else {
+            return filteredTodos[0];
+        }
+    }
 }

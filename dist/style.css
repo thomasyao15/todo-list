@@ -117,6 +117,7 @@ input {
     cursor          : pointer;
 }
 
+
 .todo:hover {
     background-color: rgb(228, 236, 238);
 }
@@ -154,4 +155,13 @@ input {
     background-color: transparent;
     cursor          : pointer;
 
+}
+
+.completed {
+    background-color: rgba(255, 255, 255, 0.308);
+    text-decoration: line-through;
+}
+
+.completed:hover {
+    background-color: rgba(255, 255, 255, 0.521);
 }
