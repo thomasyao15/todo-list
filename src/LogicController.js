@@ -2,7 +2,7 @@ import User from "./User";
 import DisplayController from "./DisplayController";
 import Project from "./Project";
 import Todo from "./Todo";
-
+import { saveData } from "./LocalStorage"
 
 export default class LogicController {
     // static let currentUser;
@@ -60,6 +60,8 @@ export default class LogicController {
         this.currentProject = projectID;
         const selectedProject = this.currentUser.getProject(projectID);
         DisplayController.renderProject(selectedProject);
+
+        saveData();
     }
 
     static handleCreateTodoClick = e => {
@@ -89,7 +91,7 @@ export default class LogicController {
         const selectedTodo = currentProject.getTodo(todoID);
         
         selectedTodo.toggleCompletion();
-        
+
         const completed = selectedTodo.completed;
         DisplayController.toggleTodo(todoID, completed)
     }
