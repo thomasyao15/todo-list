@@ -5,6 +5,13 @@ export default class DisplayController {
     static currentProjectTab = "";  // TODO: insert default project ID in here
 
     static renderProject(selectedProject) {
+        const projectListTabs = Array.from(document.querySelectorAll("li"));
+        projectListTabs.forEach(projectListTab => {
+            projectListTab.classList.remove("currently-selected")
+        })
+        const selectedProjectListTab = document.querySelector(`[id='${selectedProject.ID}']`)
+        selectedProjectListTab.classList.add("currently-selected");
+
         const focusedProjectTitle = document.querySelector("h1")
         focusedProjectTitle.textContent = selectedProject.title + " Project";
 

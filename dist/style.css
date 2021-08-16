@@ -61,15 +61,29 @@ ul {
 }
 
 li {
-    background-color: #007FFF;
-    color           : white;
+    background-color: transparent;
+    color           : black;
     padding         : 10px 20px;
     margin-bottom   : 10px;
     border-radius   : 5px;
+    border: 1px solid rgb(157, 181, 204);
+}
+
+.currently-selected {
+    background-color: #007FFF;
+    color: white;
+    border: 1px solid transparent;
 }
 
 li:hover {
+    background-color: rgba(117, 117, 117, 0.048);
+    cursor: pointer;
+}
+
+.currently-selected:hover {
     background-color: #3096fb;
+    color: white;
+    border: 1px solid transparent;
     cursor          : pointer;
 }
 

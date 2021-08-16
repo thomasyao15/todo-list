@@ -14,7 +14,7 @@ export default class LogicController {
         // create project and todos objects to populate for demo
         // add init page logic into here so index.js just calls this method
         // WRITE BELOW METHODS FIRST, then call them so you dont repeat code
-        const loadedFromStorage = loadData(this.currentUser);  // returns true if localStorage has data
+        const loadedFromStorage = loadData();  // returns true if localStorage has data
         if (!loadedFromStorage) {
             let demoProjectId = this.handleCreateProjectClick(undefined, "Megamen");  // create default demo project on init
             this.handleChangeProjectClick(undefined, demoProjectId);  // change to default created project on init
@@ -94,17 +94,18 @@ export default class LogicController {
             DisplayController.addTodo(newTodo)
         }
 
+        saveData(this.currentUser);
     }
 
     static handleDeleteTodoClick() {
     }
 
-    static handleToggleTodoClick = e => {
+    static handleToggleTodoClick = (e, manualTodoID=undefined) => {
         /**
          * Grabs clicked Todo ID and toggles completion then toggles completed class to it
          * Later move it to the bottom of todo list
          */
-        const todoID = e.currentTarget.id;
+        const todoID = manualTodoID ? manualTodoID : e.currentTarget.id;
         const currentProject = this.currentUser.getProject(this.currentProject);
         const selectedTodo = currentProject.getTodo(todoID);
         
@@ -112,5 +113,7 @@ export default class LogicController {
 
         const completed = selectedTodo.completed;
         DisplayController.toggleTodo(todoID, completed)
+
+        saveData(this.currentUser);
     }
 }
