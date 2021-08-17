@@ -7,21 +7,25 @@ export default function initPage() {
         </div>
         <div class="body-content">
             <div class="side-pane">
-                <h2>My Projects</h2>
-                <div class="projects">
-                    <ul>
-                    </ul>
+                <div class="wrapper">
+                    <h2>My Projects</h2>
+                    <div class="projects">
+                        <ul>
+                        </ul>
+                    </div>
                 </div>
                 <form id="project-form" action="create-project">
-                    <input type="text" name="new-project" id="new-project" placeholder="Enter a new project name">
+                    <input autocomplete="off" type="text" name="new-project" id="new-project" placeholder="Enter a new project name">
                     <button type="submit">Create New Project</button>
                 </form>
             </div>
             <div class="todo-content">
-                <h1>Pogs Project</h1>
-                <div class="todo-list"></div>
+                <div>
+                    <h1>Pogs Project</h1>
+                    <div class="todo-list"></div>
+                </div>
                 <form id="todo-form" action="create-todo">
-                    <input type="text" name="new-todo" id="new-todo" placeholder="Enter a new task">
+                    <input autocomplete="off" type="text" name="new-todo" id="new-todo" placeholder="Enter a new task">
                     <button type="submit">Create New Todo</button>
                 </form>
             </div>

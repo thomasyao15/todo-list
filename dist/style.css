@@ -36,16 +36,26 @@ header {
 .side-pane {
     display            : flex;
     flex-direction     : column;
-    /* justify-content : center; */
+    justify-content : space-between;
     align-items        : center;
     background-color   : aliceblue;
     padding            : 20px;
+}
+
+.wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction     : column;
+    align-items        : center;
 }
 
 .todo-content {
     background-color: #003459;
     padding         : 20px 50px;
     color           : white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .projects {
@@ -108,7 +118,6 @@ li:hover {
 }
 
 input {
-    margin-bottom   : 10px;
     height          : 30px;
     border-radius   : 5px;
     /* border       : 1px solid rgb(118, 155, 172); */
@@ -116,6 +125,10 @@ input {
     padding         : 5px 10px;
     background-color: rgb(87, 120, 163);
     color           : #ffffff;
+}
+
+.side-pane input {
+    margin-bottom   : 10px;
 }
 
 .side-pane button {
@@ -153,8 +166,11 @@ input {
 }
 
 .todo-content form {
-    display        : flex;
-    justify-content: space-between;
+    display        : grid;
+    grid-template-columns: 1fr 200px;
+    column-gap: 20px;
+    /* justify-content: space-between; */
+    /* align-items: flex-end; */
 }
 
 /* .todo-content input {
@@ -168,9 +184,9 @@ input {
     width: 50%;
 } */
 
-.todo-content input {
+/* .todo-content input {
     width: 50%;
-}
+} */
 
 ::placeholder {
     color: rgb(213, 231, 255);
@@ -208,4 +224,8 @@ input {
 img {
     /* This class is for the delete button */
     width: 15px;
+}
+
+input:focus-visible {
+    outline: none;
 }
