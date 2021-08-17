@@ -97,7 +97,13 @@ export default class LogicController {
         saveData(this.currentUser);
     }
 
-    static handleDeleteTodoClick() {
+    static handleDeleteTodoClick = (e) => {
+        e.stopPropagation();
+        const targetTodoId = e.currentTarget.parentNode.id;
+        console.log(targetTodoId);
+        this.currentUser.getProject(this.currentProject).deleteTodo(targetTodoId);
+        DisplayController.deleteTodo(targetTodoId);
+        saveData(this.currentUser);
     }
 
     static handleToggleTodoClick = (e, manualTodoID=undefined) => {

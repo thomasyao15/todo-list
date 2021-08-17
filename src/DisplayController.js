@@ -5,6 +5,18 @@ import DeleteBlack from "./delete.svg";
 export default class DisplayController {
     static currentProjectTab = "";  // TODO: insert default project ID in here
 
+    static _createDeleteTodoIcon() {
+        const deleteDiv = document.createElement("div")
+        deleteDiv.className = "delete"
+        const deleteIcon = new Image();
+        deleteIcon.src = DeleteBlack;
+        deleteDiv.append(deleteIcon);
+
+        deleteDiv.addEventListener("click", LogicController.handleDeleteTodoClick, { capture: false });
+
+        return deleteDiv;
+    }
+
     static renderProject(selectedProject) {
         const projectListTabs = Array.from(document.querySelectorAll("li"));
         projectListTabs.forEach(projectListTab => {
@@ -65,6 +77,9 @@ export default class DisplayController {
             todoTitle.textContent = todo.title;
             todoDiv.append(todoTitle);
             todoList.append(todoDiv);
+
+            const deleteDiv = this._createDeleteTodoIcon();
+            todoDiv.append(deleteDiv);
         })
 
 
@@ -76,11 +91,7 @@ export default class DisplayController {
         newProject.id = id;
         newProject.addEventListener("click", LogicController.handleChangeProjectClick)
 
-        const deleteDiv = document.createElement("div")
-        deleteDiv.className = "delete"
-        const deleteIcon = new Image();
-        deleteIcon.src = DeleteBlack;
-        deleteDiv.append(deleteIcon);
+        const deleteDiv = this._createDeleteTodoIcon();
         newProject.append(deleteDiv);
 
         const projectList = document.querySelector("ul");
@@ -107,11 +118,7 @@ export default class DisplayController {
             todoDiv.classList.add("completed");
             todoDiv.parentNode.append(todoDiv); // move to the bottom of the list
 
-            const deleteDiv = document.createElement("div")
-            deleteDiv.className = "delete"
-            const deleteIcon = new Image();
-            deleteIcon.src = DeleteBlack;
-            deleteDiv.append(deleteIcon);
+            const deleteDiv = this._createDeleteTodoIcon();
             todoDiv.append(deleteDiv);
         } else {
             todoDiv.classList.remove("completed");
@@ -120,7 +127,9 @@ export default class DisplayController {
         }
     }
 
-    static deleteTodo() {
+    static deleteTodo(todoID) {
+        const todoDiv = document.getElementById(todoID);
+        todoDiv.remove();
     }
 
     // TODO: add other methods as required
