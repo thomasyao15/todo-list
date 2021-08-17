@@ -66,6 +66,10 @@ li {
     padding         : 10px 20px;
     margin-bottom   : 10px;
     border-radius   : 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
 }
 
 li:hover {
@@ -115,6 +119,36 @@ input {
     margin-bottom: 20px;
     border-radius: 5px;
     cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.todo {
+    background-color: rgba(255, 255, 255, 0.473);
+    color           : #003459;
+    padding: 1px 20px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.delete {
+    width: 15px;
+    opacity: 50%;
+}
+
+.delete:hover {
+    opacity: 100%;
+}
+
+img {
+    width: 15px;
 }
 
 .todo:hover {
