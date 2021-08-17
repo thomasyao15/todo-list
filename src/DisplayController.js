@@ -1,4 +1,5 @@
 import LogicController from "./LogicController";
+import DeleteBlack from "./delete.svg";
 
 
 export default class DisplayController {
@@ -87,9 +88,17 @@ export default class DisplayController {
         if (completed) {
             todoDiv.classList.add("completed");
             todoDiv.parentNode.append(todoDiv); // move to the bottom of the list
+            
+            const deleteDiv = document.createElement("div")
+            deleteDiv.className = "delete"
+            const deleteIcon = new Image();
+            deleteIcon.src = DeleteBlack;
+            deleteDiv.append(deleteIcon);
+            todoDiv.append(deleteDiv);
         } else {
             todoDiv.classList.remove("completed");
             todoDiv.parentElement.prepend(todoDiv);  // move to top of list
+            todoDiv.childNodes[1].remove();  // remove the delete button
         }
     }
 
