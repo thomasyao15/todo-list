@@ -60,7 +60,13 @@ export default class LogicController {
         
     }
 
-    static handleDeleteProjectClick() {
+    static handleDeleteProjectClick = (e) => {
+        e.stopPropagation();
+        const targetProjectId = e.currentTarget.parentNode.id;
+        console.log(targetProjectId);
+        this.currentUser.deleteProject(targetProjectId);
+        DisplayController.deleteProject(targetProjectId);
+        saveData(this.currentUser);
     }
 
     static handleChangeProjectClick = (e, projectId=undefined) => {

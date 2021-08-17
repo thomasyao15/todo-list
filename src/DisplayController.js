@@ -17,17 +17,25 @@ export default class DisplayController {
         return deleteDiv;
     }
 
+    static _createDeleteProjectIcon() {
+        const deleteDiv = document.createElement("div")
+        deleteDiv.className = "delete"
+        const deleteIcon = new Image();
+        deleteIcon.src = DeleteBlack;
+        deleteDiv.append(deleteIcon);
+
+        deleteDiv.addEventListener("click", LogicController.handleDeleteProjectClick, { capture: false });
+
+        return deleteDiv;
+    }
+
     static renderProject(selectedProject) {
         const projectListTabs = Array.from(document.querySelectorAll("li"));
         projectListTabs.forEach(projectListTab => {
             projectListTab.classList.remove("currently-selected")
 
             if (projectListTab.childNodes.length < 2) {
-                const deleteDiv = document.createElement("div")
-                deleteDiv.className = "delete"
-                const deleteIcon = new Image();
-                deleteIcon.src = DeleteBlack;
-                deleteDiv.append(deleteIcon);
+                const deleteDiv = this._createDeleteProjectIcon();
                 projectListTab.append(deleteDiv);
             }
         })
@@ -91,7 +99,7 @@ export default class DisplayController {
         newProject.id = id;
         newProject.addEventListener("click", LogicController.handleChangeProjectClick)
 
-        const deleteDiv = this._createDeleteTodoIcon();
+        const deleteDiv = this._createDeleteProjectIcon();
         newProject.append(deleteDiv);
 
         const projectList = document.querySelector("ul");
@@ -130,6 +138,11 @@ export default class DisplayController {
     static deleteTodo(todoID) {
         const todoDiv = document.getElementById(todoID);
         todoDiv.remove();
+    }
+
+    static deleteProject(projectID) {
+        const projectDiv = document.getElementById(projectID);
+        projectDiv.remove();
     }
 
     // TODO: add other methods as required

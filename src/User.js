@@ -8,7 +8,7 @@ export default class User {
         this.projects.push(project);
     }
 
-    deleteTodo(projectID) {
+    deleteProject(projectID) {
         this.projects.forEach((project, index, array) => {
             if (project.ID == projectID) {
                 array.splice(index, 1);
