@@ -67,6 +67,18 @@ li {
     margin-bottom   : 10px;
     border-radius   : 5px;
     border: 1px solid rgb(157, 181, 204);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+li img {
+    opacity: 0;
+}
+
+li:hover img {
+    opacity: 0.8;
 }
 
 .currently-selected {
@@ -129,6 +141,10 @@ input {
     margin-bottom   : 20px;
     border-radius   : 5px;
     cursor          : pointer;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
 }
 
 
@@ -178,4 +194,18 @@ input {
 
 .completed:hover {
     background-color: rgba(255, 255, 255, 0.521);
+}
+
+.delete {
+    width: 15px;
+    opacity: 50%;
+}
+
+.delete:hover {
+    opacity: 100%;
+}
+
+img {
+    /* This class is for the delete button */
+    width: 15px;
 }
