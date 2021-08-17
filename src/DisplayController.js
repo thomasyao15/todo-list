@@ -9,9 +9,19 @@ export default class DisplayController {
         const projectListTabs = Array.from(document.querySelectorAll("li"));
         projectListTabs.forEach(projectListTab => {
             projectListTab.classList.remove("currently-selected")
+
+            if (projectListTab.childNodes.length < 2) {
+                const deleteDiv = document.createElement("div")
+                deleteDiv.className = "delete"
+                const deleteIcon = new Image();
+                deleteIcon.src = DeleteBlack;
+                deleteDiv.append(deleteIcon);
+                projectListTab.append(deleteDiv);
+            }
         })
         const selectedProjectListTab = document.querySelector(`[id='${selectedProject.ID}']`)
         selectedProjectListTab.classList.add("currently-selected");
+        selectedProjectListTab.childNodes[1].remove()  // remove delete button for currently selected project
 
         const focusedProjectTitle = document.querySelector("h1")
         focusedProjectTitle.textContent = selectedProject.title + " Project";
@@ -65,6 +75,14 @@ export default class DisplayController {
         newProject.textContent = title;
         newProject.id = id;
         newProject.addEventListener("click", LogicController.handleChangeProjectClick)
+
+        const deleteDiv = document.createElement("div")
+        deleteDiv.className = "delete"
+        const deleteIcon = new Image();
+        deleteIcon.src = DeleteBlack;
+        deleteDiv.append(deleteIcon);
+        newProject.append(deleteDiv);
+
         const projectList = document.querySelector("ul");
         projectList.append(newProject);
     }
@@ -88,7 +106,7 @@ export default class DisplayController {
         if (completed) {
             todoDiv.classList.add("completed");
             todoDiv.parentNode.append(todoDiv); // move to the bottom of the list
-            
+
             const deleteDiv = document.createElement("div")
             deleteDiv.className = "delete"
             const deleteIcon = new Image();

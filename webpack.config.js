@@ -13,4 +13,12 @@ module.exports = {
     optimization: {
         minimize: false
     },
+    module: {
+        rules: [
+            {
+                test: /\.(png|svg|jpg|jpeg|gif)$/i,
+                type: 'asset/resource',
+            },
+        ]
+    }
 }
