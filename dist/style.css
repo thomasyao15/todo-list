@@ -145,6 +145,13 @@ input {
 
 .todo-list {
     margin: 40px 0;
+    height: calc(100vh - 260px);
+    overflow: auto;
+}
+
+.todo-wrapper {
+    display: grid;
+    grid-template-rows: 50px 1fr;
 }
 
 .todo {

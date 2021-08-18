@@ -20,7 +20,7 @@ export default function initPage() {
                 </form>
             </div>
             <div class="todo-content">
-                <div>
+                <div class="todo-wrapper">
                     <h1>Pogs Project</h1>
                     <div class="todo-list"></div>
                 </div>
